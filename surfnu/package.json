@@ -12,6 +12,7 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "predeploy": "npm run build",
+    
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
