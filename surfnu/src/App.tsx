@@ -2,7 +2,7 @@ import Slide from "@material-ui/core/Slide";
 import * as React from "react";
 import "./App.css";
 import No from "./No";
-import Place from "./Place";
+import Question from "./Question";
 
 class App extends React.Component {
   public render() {
@@ -20,8 +20,8 @@ class App extends React.Component {
             unmountOnExit={true}
           >
             <div>
+              <Question />
               <No />
-              <Place />
             </div>
           </Slide>
         </p>
