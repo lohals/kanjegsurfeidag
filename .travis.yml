@@ -8,3 +8,5 @@ deploy:
   keep-history: true
   on:
     branch: master
+before-script:
+  cd surfnu
