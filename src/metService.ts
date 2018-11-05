@@ -5,8 +5,6 @@ interface IWeatherData {
 
 export async function canISurfNow() {
   const result = await getLatestWeather();
-  console.log(fs);
-  console.log(fs);
   return result;
 }
 async function getLatestWeather() {
