@@ -1,4 +1,3 @@
-import { fs } from "fs";
 import { Parser } from "xml2js";
 interface IWeatherData {
   product: [];
@@ -6,9 +5,6 @@ interface IWeatherData {
 
 export async function canISurfNow() {
   const result = await getLatestWeather();
-  console.log(fs);
-  fs.writeFile("test.json", result);
-  console.log(fs);
   return result;
 }
 async function getLatestWeather() {
