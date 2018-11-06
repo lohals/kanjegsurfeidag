@@ -1,21 +1,52 @@
 import { Parser } from "xml2js";
-interface IWeatherData {
-  product: [];
+
+// Met.no raw data structures
+
+export interface IForecast {
+  $: {
+    datatype: "forecast";
+    from: Date;
+    to: Date;
+  };
+  temperature: [{ $: { value: number } }];
+  windDirection: [{ $: { name: string; deg: number } }];
+  windSpeed: [{ $: { mps: number; name: string } }];
+  windGust: [{ $: { mps: number } }];
+  areaMaxWindSpeed: [{ $: { mps: number } }];
+  // humidity: [Array];
+  // pressure: [Array];
+  // cloudiness: [Array];
+  // fog: [Array];
+  // lowClouds: [Array];
+  // mediumClouds: [Array];
+  // highClouds: [Array];
+  // dewpointTemperature: [Array];
 }
 
-export async function canISurfNow() {
-  const result = await getLatestWeather();
-  return result;
+interface IProduct {
+  $: { class: "pointData" };
+  time: [
+    {
+      $: any;
+      location: IForecast[];
+    }
+  ];
 }
-async function getLatestWeather() {
+export interface IMetData {
+  product: IProduct[];
+}
+
+export async function getLatestWeather() {
   const uri =
     "https://api.met.no/weatherapi/locationforecast/1.9/?lat=55.63&lon=12.52";
+
+  // Fetch latest data
   const result = await (await fetch(uri)).text();
-  const promise = new Promise<IWeatherData>(r => {
+
+  return await new Promise<IMetData>(resolve => {
     new Parser().parseString(result, (err: any, parsedXml: any) => {
-      r(parsedXml.weatherdata as IWeatherData);
+      // Convert from xml to json
+      resolve(parsedXml.weatherdata as IMetData);
     });
   });
-
-  return promise;
 }
