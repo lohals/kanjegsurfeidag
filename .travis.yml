@@ -3,7 +3,8 @@ node_js:
   - "node"
 script:
   - npm run build
-  - npm run test
+  - npm run test-with-coverage
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then npm run send-coverage ; fi
 branches:
   only:
     - master
