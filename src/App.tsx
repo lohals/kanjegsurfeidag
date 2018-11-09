@@ -1,6 +1,7 @@
 import Slide from "@material-ui/core/Slide";
 import * as React from "react";
 import "./App.css";
+import MapContainer from './components/Map/MapContainer';
 import No from "./No";
 import Question from "./Question";
 
@@ -22,6 +23,7 @@ class App extends React.Component {
             <div>
               <Question />
               <No />
+              <MapContainer />
             </div>
           </Slide>
         </div>
