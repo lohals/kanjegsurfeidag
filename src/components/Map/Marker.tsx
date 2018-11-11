@@ -1,13 +1,13 @@
 import * as React from 'react';
+export interface MarkerProps {
+  id: string
+  location: string
+  lat: number
+  lng: number
+}
 
-interface IMarkerProps {
-    lat: number,
-    lng: number,
-    text: string
-  }
-
-const Marker: React.SFC<IMarkerProps> = (props) => {
-    return <div style={markerStyle}>{props.text}</div>;
+const Marker: React.SFC<MarkerProps> = (props) => {
+  return <div style={markerStyle}>{props.id}</div>;
 };
 
 export default Marker
@@ -22,7 +22,7 @@ const markerStyle: React.CSSProperties = {
   height: K_HEIGHT,
   top: -K_HEIGHT / 2,
   left: -K_WIDTH / 2,
-  border: '5px solid #f44336',
+  border: '2px solid #f44336',
   borderRadius: K_HEIGHT,
   backgroundColor: 'white',
   textAlign: 'center',

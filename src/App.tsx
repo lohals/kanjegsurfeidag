@@ -1,12 +1,29 @@
 import Slide from "@material-ui/core/Slide";
 import * as React from "react";
 import "./App.css";
+import { Locations } from './components/Map/Locations';
 import MapContainer from './components/Map/MapContainer';
 import No from "./No";
 import Question from "./Question";
 
-class App extends React.Component {
+interface AppState {
+  currentLocation: string;
+}
+
+class App extends React.Component<any, AppState> {
+
+  state = {
+    currentLocation: Locations[0].location
+  }
+
+  setLocation = (location: string) => {
+    this.setState({
+      currentLocation: location
+    })
+  }
+
   public render() {
+    const { currentLocation } = this.state
     return (
       <div className="App">
         {/* <header className="App-header">
@@ -21,9 +38,9 @@ class App extends React.Component {
             unmountOnExit={true}
           >
             <div>
-              <Question />
+              <Question location={currentLocation} />
               <No />
-              <MapContainer />
+              <MapContainer onLocationChange={this.setLocation} />
             </div>
           </Slide>
         </div>

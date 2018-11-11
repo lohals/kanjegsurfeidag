@@ -1,21 +1,49 @@
-import GoogleMapReact from 'google-map-react';
+import GoogleMapReact, { Coords } from 'google-map-react';
 import * as React from 'react';
-import Marker from "./Marker";
+import { Locations } from './Locations';
+import Marker, { MarkerProps } from "./Marker";
 
-export default class MapContainer extends React.Component<any, any> {
-      public render() {
-        return (
-          <div style={{ height: '500px', width: '100vw' }}>
-            <GoogleMapReact
-              defaultCenter={{
-                lat: 55.63,
-                lng: 12.52
-              }}
-              defaultZoom={13}  
-            >
-               <Marker lat={55.63} lng={12.52} text={"x"} />
-            </GoogleMapReact>
-          </div>
-        );
-      }
+interface MapContainerProps {
+  onLocationChange: (location: string) => void
+}
+
+interface MapContainerState {
+  center?: Coords;
+}
+
+export default class MapContainer extends React.Component<MapContainerProps, MapContainerState> {
+
+  state = {
+    center: Locations[0]
+  }
+
+  onChildClick = (key: string, location: MarkerProps) => {
+    this.setState({
+      center: location
+    }, () => this.props.onLocationChange(location.location))
+  }
+
+  resetCenter = () => {
+    this.setState({ center: undefined })
+  }
+
+  public render() {
+    const { center } = this.state;
+    const surfLocations = Locations.map(location => <Marker key={location.id} {...location} />)
+
+    return (
+      <div style={{ height: '500px', width: '100vw' }}>
+        <GoogleMapReact
+          defaultCenter={Locations[0]} // TODO: Get default center from props
+          center={center}
+          defaultZoom={13}
+          onChildClick={this.onChildClick}
+          onDrag={this.resetCenter}
+          onZoomAnimationStart={this.resetCenter}
+        >
+          {surfLocations}
+        </GoogleMapReact>
+      </div>
+    );
+  }
 }
