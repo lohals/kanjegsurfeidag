@@ -1,3 +1,4 @@
+import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 
 interface QuestionProps {
@@ -5,7 +6,12 @@ interface QuestionProps {
 }
 
 const Question: React.SFC<QuestionProps> = (props) => {
-  return <div> Kan jeg surfe i <strong>{props.location}</strong>?</div>;
+  return (
+    <>
+      <Typography component="h4" variant="h4" gutterBottom={true}>
+        Kan jeg surfe i {props.location} ?
+      </Typography>
+    </>);
 };
 
 export default Question;

@@ -1,4 +1,5 @@
-import { getLatestWeather, IMetData } from "./metService";
+import { Location } from './components/Map/Locations';
+import { getLatestWeatherForCoordinate, IMetData } from "./metService";
 
 interface IWeatherDataPoint {
   from: Date;
@@ -18,7 +19,7 @@ interface IWeatherDataPoint {
   };
 }
 
-interface IWeatherData {
+export interface IWeatherData {
   points: IWeatherDataPoint[];
 }
 function map(raw: IMetData): IWeatherData {
@@ -37,8 +38,8 @@ function map(raw: IMetData): IWeatherData {
           data: {
             areaMaxWindSpeed: areaMaxWindSpeed
               ? {
-                  mps: areaMaxWindSpeed[0].$.mps
-                }
+                mps: areaMaxWindSpeed[0].$.mps
+              }
               : undefined,
             temperature: temperature[0].$.value,
             windDirection: {
@@ -52,8 +53,8 @@ function map(raw: IMetData): IWeatherData {
 
             windGust: windGust
               ? {
-                  mps: windGust[0].$.mps
-                }
+                mps: windGust[0].$.mps
+              }
               : undefined
           },
           from: t.$.from,
@@ -63,7 +64,7 @@ function map(raw: IMetData): IWeatherData {
   };
 }
 
-export async function loadWeatherData(): Promise<IWeatherData> {
-  const rawData = await getLatestWeather();
+export async function loadWeatherDataForLocation(location: Location): Promise<IWeatherData> {
+  const rawData = await getLatestWeatherForCoordinate(location.lat, location.lng);
   return map(rawData);
 }
