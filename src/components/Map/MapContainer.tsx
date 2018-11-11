@@ -1,10 +1,10 @@
 import GoogleMapReact, { Coords } from 'google-map-react';
 import * as React from 'react';
-import { Locations } from './Locations';
-import Marker, { MarkerProps } from "./Marker";
+import { Location, Locations } from './Locations';
+import Marker from "./Marker";
 
 interface MapContainerProps {
-  onLocationChange: (location: string) => void
+  onLocationChange: (location: Location) => void
 }
 
 interface MapContainerState {
@@ -17,10 +17,10 @@ export default class MapContainer extends React.Component<MapContainerProps, Map
     center: Locations[0]
   }
 
-  onChildClick = (key: string, location: MarkerProps) => {
+  onChildClick = (key: string, location: Location) => {
     this.setState({
       center: location
-    }, () => this.props.onLocationChange(location.location))
+    }, () => this.props.onLocationChange(location))
   }
 
   resetCenter = () => {
@@ -36,7 +36,7 @@ export default class MapContainer extends React.Component<MapContainerProps, Map
         <GoogleMapReact
           defaultCenter={Locations[0]} // TODO: Get default center from props
           center={center}
-          defaultZoom={13}
+          defaultZoom={12}
           onChildClick={this.onChildClick}
           onDrag={this.resetCenter}
           onZoomAnimationStart={this.resetCenter}

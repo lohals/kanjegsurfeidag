@@ -1,12 +1,7 @@
 import * as React from 'react';
-export interface MarkerProps {
-  id: string
-  location: string
-  lat: number
-  lng: number
-}
+import { Location } from './Locations';
 
-const Marker: React.SFC<MarkerProps> = (props) => {
+const Marker: React.SFC<Location> = (props) => {
   return <div style={markerStyle}>{props.id}</div>;
 };
 

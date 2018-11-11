@@ -36,9 +36,9 @@ export interface IMetData {
   product: IProduct[];
 }
 
-export async function getLatestWeather() {
+export async function getLatestWeatherForCoordinate(lat: number, lon: number) {
   const uri =
-    "https://api.met.no/weatherapi/locationforecast/1.9/?lat=55.63&lon=12.52";
+    `https://api.met.no/weatherapi/locationforecast/1.9/?lat=${lat}&lon=${lon}`;
 
   // Fetch latest data
   const result = await (await fetch(uri)).text();
